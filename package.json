@@ -1,0 +1,26 @@
+{
+  "name": "react-circle",
+  "version": "0.0.1",
+  "description": "This is an implementation of Jeremy Ashkenas's animating circles demo",
+  "main": "server.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevekane/react-circles.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Steve Kane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevekane/react-circles/issues"
+  },
+  "homepage": "https://github.com/stevekane/react-circles",
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "ecstatic": "~0.4.13"
+  }
+}
