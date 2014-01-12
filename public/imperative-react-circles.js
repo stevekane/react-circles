@@ -1,8 +1,4 @@
-var range = _.range
-  , forEach = _.forEach
-  , partial = _.partial
-  , map = _.map
-  , CIRCLE_COUNT = 5
+var CIRCLE_COUNT = 5
 
 //def of circle object.  no methods
 var Circle = function () {
@@ -11,11 +7,6 @@ var Circle = function () {
   this.color = 0;
   this.content = 0;
 };
-
-//build our circle objects in an array
-var circles = map(range(CIRCLE_COUNT), function () {
-  return new Circle;
-});
 
 //mutation of our each circle in our Atom
 var updateCircle = function (count, circle) {
@@ -73,6 +64,12 @@ var CirclesComponent = React.createClass({
     }, circleComponents);
   }
 });
+
+//build our circle objects in an array
+var circles = [];
+for (var j=0; j < CIRCLE_COUNT; ++j) {
+  circles.push(new Circle);
+}
 
 var gui = React.renderComponent(
   CirclesComponent({
