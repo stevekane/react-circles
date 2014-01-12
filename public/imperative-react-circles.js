@@ -8,14 +8,6 @@ var Circle = function () {
   this.content = 0;
 };
 
-//mutation of our each circle in our Atom
-var updateCircle = function (count, circle) {
-  circle.top = Math.round(Math.sin(count / 10) * 10)
-  circle.left = Math.round(Math.cos(count / 10) * 10);
-  circle.color = (count) % 255;
-  circle.content = count % 100;
-};
-
 //Imperative tick implementation
 var tick = function (circles, gui, count) {
   var newCount = count + 1;
