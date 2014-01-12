@@ -20,8 +20,8 @@ var circles = map(range(CIRCLE_COUNT), function () {
 
 //mutation of our each circle in our Atom
 var updateCircle = function (count, circle) {
-  circle.top = Math.sin(count / 10) * 10;
-  circle.left = Math.cos(count / 10) * 10;
+  circle.top = Math.sin(count / 5) * 2;
+  circle.left = Math.cos(count / 5) * 2;
   circle.color = (count) % 255;
   circle.content = count % 100;
 };
@@ -48,11 +48,11 @@ var CircleComponent = React.createClass({
     var circle = this.props.circle;
 
     return (
-      <div className="box-view">
-        <div className="box" style={buildStyles(circle)} >
-          {circle.content}
-        </div>
+    <div className="box-view">
+      <div className="box" style={buildStyles(circle)} >
+        {circle.content}
       </div>
+    </div>
     );
   }
 });
@@ -63,13 +63,11 @@ var createCircleComponent = function (circle, index) {
 
 var CirclesComponent = React.createClass({
   render: function () {
-    var circles = this.props.circles;
-
     return (
-      <div className="circles">
-        {map(circles, createCircleComponent)}
-      </div>
-    );
+    <div className="circles">
+      {map(this.props.circles, createCircleComponent)}
+    </div>
+    )
   }
 });
 
