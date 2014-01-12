@@ -1,4 +1,4 @@
-var CIRCLE_COUNT = 5
+var CIRCLE_COUNT = 100;
 
 //def of circle object.  no methods
 var Circle = function () {
@@ -27,7 +27,7 @@ var tick = function (circles, gui, count) {
     circles[i].content = count % 100;
   }
   gui.setProps({circles: circles});
-  setTimeout(partial(tick, circles, gui, newCount), 0);
+  setTimeout(tick.bind(window, circles, gui, newCount), 0);
 };
 
 var buildStyles = function (circle) {
@@ -78,4 +78,4 @@ var gui = React.renderComponent(
   document.body
 );
 
-setTimeout(partial(tick, circles, gui, 0), 0);
+setTimeout(tick.bind(window, circles, gui, 0), 0);
