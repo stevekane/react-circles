@@ -18,10 +18,10 @@ var circles = map(range(CIRCLE_COUNT), function () {
   return new Circle;
 });
 
-//mutation of our each circle in our Atom
+//mutate each circle in our circles atom
 var updateCircle = function (count, circle) {
-  circle.top = Math.sin(count / 5) * 2;
-  circle.left = Math.cos(count / 5) * 2;
+  circle.top = Math.round(Math.sin(count / 10) * 10)
+  circle.left = Math.round(Math.cos(count / 10) * 10);
   circle.color = (count) % 255;
   circle.content = count % 100;
 };
@@ -31,7 +31,6 @@ var tick = function (circles, gui, count) {
 
   forEach(circles, partial(updateCircle, newCount));
   gui.setProps({circles: circles});
-  //requestAnimationFrame(partial(tick, circles, gui, newCount));
   setTimeout(partial(tick, circles, gui, newCount), 0);
 };
 
@@ -45,12 +44,10 @@ var buildStyles = function (circle) {
 
 var CircleComponent = React.createClass({
   render: function () {
-    var circle = this.props.circle;
-
     return (
     <div className="box-view">
-      <div className="box" style={buildStyles(circle)} >
-        {circle.content}
+      <div className="box" style={buildStyles(this.props.circle)} >
+        {this.props.circle.content}
       </div>
     </div>
     );
@@ -77,4 +74,3 @@ var gui = React.renderComponent(
 );
 
 setTimeout(partial(tick, circles, gui, 0), 0);
-//requestAnimationFrame(partial(tick, circles, gui, 0));
