@@ -5,24 +5,20 @@ var _ = require('lodash')
   , map = _.map
   , CIRCLE_COUNT = 100
 
-//def of circle object.  no methods
-var Circle = function () {
-  this.top = 0;
-  this.left = 0;
-  this.color = 0;
-  this.content = 0;
+var createCircle = function () {
+  return {
+    top: 0,
+    left: 0,
+    color: 0,
+    content: 0 
+  };
 };
-
-//build our circle objects in an array
-var circles = map(range(CIRCLE_COUNT), function () {
-  return new Circle;
-});
 
 //mutate each circle in our circles atom
 var updateCircle = function (count, circle) {
-  circle.top = Math.round(Math.sin(count / 10) * 10)
+  circle.top = Math.round(Math.sin(count / 10) * 10);
   circle.left = Math.round(Math.cos(count / 10) * 10);
-  circle.color = (count) % 255;
+  circle.color = count % 255;
   circle.content = count % 100;
 };
 
@@ -31,7 +27,7 @@ var tick = function (circles, gui, count) {
 
   forEach(circles, partial(updateCircle, newCount));
   gui.setProps({circles: circles});
-  setTimeout(partial(tick, circles, gui, newCount), 0);
+  requestAnimationFrame(partial(tick, circles, gui, newCount), 0);
 };
 
 var buildStyles = function (circle) {
@@ -68,9 +64,10 @@ var CirclesComponent = React.createClass({
   }
 });
 
+var circles = map(range(CIRCLE_COUNT), createCircle);
 var gui = React.renderComponent(
   <CirclesComponent circles={circles} />,
   document.body
 );
 
-setTimeout(partial(tick, circles, gui, 0), 0);
+requestAnimationFrame(partial(tick, circles, gui, 0), 0);
