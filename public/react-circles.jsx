@@ -2,6 +2,7 @@ var _ = require('lodash')
   , range = _.range
   , forEach = _.forEach
   , partial = _.partial
+  , extend = _.extend
   , map = _.map
   , CIRCLE_COUNT = 100
 
@@ -16,16 +17,23 @@ var createCircle = function () {
 
 //mutate each circle in our circles atom
 var updateCircle = function (count, circle) {
-  circle.top = Math.round(Math.sin(count / 10) * 10);
-  circle.left = Math.round(Math.cos(count / 10) * 10);
-  circle.color = count % 255;
-  circle.content = count % 100;
+  extend(circle, newProps);
+};
+
+var calculateProps = function (count) {
+  return {
+    top: Math.round(Math.sin(count / 10) * 10),
+    left: Math.round(Math.cos(count / 10) * 10),
+    color: count % 255,
+    content: count % 100
+  }
 };
 
 var tick = function (circles, gui, count) {
-  var newCount = count + 1;
+  var newCount = count + 1
+    , newProps = calculateProps(newCount);
 
-  forEach(circles, partial(updateCircle, newCount));
+  forEach(circles, partial(updateCircle, newProps));
   gui.setProps({circles: circles});
   requestAnimationFrame(partial(tick, circles, gui, newCount), 0);
 };

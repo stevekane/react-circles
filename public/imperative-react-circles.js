@@ -8,15 +8,25 @@ var Circle = function () {
   this.content = 0;
 };
 
+var calculateProps = function (count) {
+  return {
+    top: Math.round(Math.sin(count / 10) * 10),
+    left: Math.round(Math.cos(count / 10) * 10),
+    color: count % 255,
+    content: count % 100
+  }
+};
+
 //Imperative tick implementation
 var tick = function (circles, gui, count) {
-  var newCount = count + 1;
+  var newCount = count + 1
+    , newProps = calculateProps(newCount);
 
   for (var i=0, len=circles.length; i < len ; ++i) {
-    circles[i].top = Math.round(Math.sin(count / 10) * 10)
-    circles[i].left = Math.round(Math.cos(count / 10) * 10);
-    circles[i].color = (count) % 255;
-    circles[i].content = count % 100;
+    circles[i].top = newProps.top;
+    circles[i].left = newProps.left;
+    circles[i].color = newProps.color;
+    circles[i].content = newProps.content;
   }
   gui.setProps({circles: circles});
   setTimeout(tick.bind(window, circles, gui, newCount), 0);
